@@ -72,6 +72,20 @@ router.post('/login', async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+router.get('/me', protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id)
+      .select('-password')
+      .populate('class', 'name');
+    
+    res.json({
+      status: 'success',
+      data: { user }
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 // Logout (client-side token removal)
 router.post('/logout', (req, res) => {
