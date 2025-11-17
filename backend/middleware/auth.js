@@ -1,30 +1,38 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-const app = express();
+const protect = async (req, res, next) => {
+  try {
+    let token;
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+      token = req.headers.authorization.split(' ')[1];
+    }
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+    if (!token) {
+      return res.status(401).json({ message: 'Not authorized, no token' });
+    }
 
-// Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/admin', require('./routes/admin'));
-app.use('/api/teacher', require('./routes/teacher'));
-app.use('/api/student', require('./routes/student'));
-app.use('/api/lessons', require('./routes/lessons'));
-app.use('/api/quizzes', require('./routes/quizzes'));
-app.use('/api/challenges', require('./routes/challenges'));
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+    const user = await User.findById(decoded.id);
 
-// Database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/kwigaquest', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+    if (!user) {
+      return res.status(401).json({ message: 'User not found' });
+    }
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+    req.user = user;
+    next();
+  } catch (error) {
+    res.status(401).json({ message: 'Not authorized' });
+  }
+};
+
+const restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({ message: 'Access denied' });
+    }
+    next();
+  };
+};
+
+module.exports = { protect, restrictTo };
