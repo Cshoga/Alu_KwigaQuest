@@ -17,7 +17,7 @@ export default function Navbar(){
   )
 }
 
------ FILE: frontend/src/components/LessonCard.jsx
+//----- FILE: frontend/src/components/LessonCard.jsx
 import React from 'react'
 export default function LessonCard({lesson, onMark}){
   return (
