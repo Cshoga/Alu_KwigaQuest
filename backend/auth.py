@@ -3,7 +3,7 @@ from models import User, db
 
 
 class AuthService:
-@staticmethod
+      @staticmethod
 def create_user(username, password, role='student', classroom=None):
     if User.query.filter_by(username=username).first():
        return None
