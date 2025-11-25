@@ -1,61 +1,62 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import Sidebar from '../components/Sidebar'
+import Toast from '../components/Toast'
 import { sampleLessons, sampleQuizzes, sampleChallenges, sampleBadges } from '../data/sampleData'
-import { useNavigate } from 'react-router-dom'
-
-function IconTitle({icon, text}){
-  return <h3><i className={icon} style={{marginRight:8}}></i>{text}</h3>
-}
 
 export default function StudentDashboard(){
-  const nav = useNavigate()
-  const logout = ()=> nav('/login')
+  const [loading,setLoading] = useState(true)
+  const [toast,setToast] = useState(null)
+
+  useEffect(()=>{
+    setTimeout(()=>setLoading(false), 700)
+  },[])
+
+  if(loading) return <div className='container'><h2>Loading...</h2></div>
 
   return (
-    <div className='container'>
-      <div className='header-bar'>
-        <h2>Student Dashboard</h2>
-        <span className='logout' onClick={logout}>Sign out</span>
-      </div>
+    <>
+      <Sidebar role="Student" />
+      <div className='container' style={{marginLeft:220}}>
+        <h2>Welcome Student</h2>
+        {toast && <Toast message={toast} />}
 
-      <IconTitle icon="fa fa-book" text="Lessons" />
-      <div className='lesson-grid'>
-        {sampleLessons.map(l=> (
-          <div className='card' key={l.id}>
-            <div className='card-title'>{l.title}</div>
-            <div className='small'>{l.description}</div>
-          </div>
-        ))}
-      </div>
+        <h3><i className='fa fa-book'></i> Lessons</h3>
+        <div className='lesson-grid'>
+          {sampleLessons.map(l=>(
+            <div className='card' key={l.id}>
+              <h4>{l.title}</h4>
+              <p>{l.description}</p>
+            </div>
+          ))}
+        </div>
 
-      <IconTitle icon="fa fa-pen" text="Quizzes" />
-      <div className='lesson-grid'>
-        {sampleQuizzes.map(q=> (
-          <div className='card' key={q.id}>
-            <div className='card-title'>{q.title}</div>
-            <div className='small'>{q.questions.length} questions</div>
-          </div>
-        ))}
-      </div>
+        <h3><i className='fa fa-pen'></i> Quizzes</h3>
+        <div className='lesson-grid'>
+          {sampleQuizzes.map(q=>(
+            <div className='card' key={q.id}>
+              <h4>{q.title}</h4>
+            </div>
+          ))}
+        </div>
 
-      <IconTitle icon="fa fa-trophy" text="Challenges" />
-      <div className='lesson-grid'>
-        {sampleChallenges.map(c=> (
-          <div className='card' key={c.id}>
-            <div className='card-title'>{c.title}</div>
-            <div className='small'>{c.description}</div>
-          </div>
-        ))}
-      </div>
+        <h3><i className='fa fa-trophy'></i> Challenges</h3>
+        <div className='lesson-grid'>
+          {sampleChallenges.map(c=>(
+            <div className='card' key={c.id}>
+              <h4>{c.title}</h4>
+            </div>
+          ))}
+        </div>
 
-      <IconTitle icon="fa fa-medal" text="Badges" />
-      <div style={{display:'flex',gap:12}}>
-        {sampleBadges.map(b=> (
-          <div className='card' key={b.id}>
-            <div className='card-title'>{b.name}</div>
-            <div className='small'>{b.requirement}</div>
-          </div>
-        ))}
+        <h3><i className='fa fa-medal'></i> Badges</h3>
+        <div style={{display:'flex',gap:12}}>
+          {sampleBadges.map(b=>(
+            <div className='card' key={b.id}>
+              <h4>{b.name}</h4>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
