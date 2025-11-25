@@ -3,7 +3,7 @@ from models import User
 from app import db
 
 auth_bp = Blueprint('auth_bp', __name__)
-\ n@auth_bp.route('/login', methods=['POST'])
+@auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json() or {}
     username = data.get('username')
