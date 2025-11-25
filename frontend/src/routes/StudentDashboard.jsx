@@ -1,29 +1,61 @@
 import React from 'react'
 import { sampleLessons, sampleQuizzes, sampleChallenges, sampleBadges } from '../data/sampleData'
+import { useNavigate } from 'react-router-dom'
 
-function LessonCard({l}){
-  return (<div className='card'><div className='card-title'>{l.title}</div><div className='small'>{l.description}</div></div>)
+function IconTitle({icon, text}){
+  return <h3><i className={icon} style={{marginRight:8}}></i>{text}</h3>
 }
-function QuizCard({q}){return (<div className='card'><div className='card-title'>{q.title}</div><div className='small'>{q.questions.length} questions</div></div>)}
-function ChallengeCard({c}){return (<div className='card'><div className='card-title'>{c.title}</div><div className='small'>{c.description}</div></div>)}
-function BadgeCard({b}){return (<div className='card'><div className='card-title'>{b.name}</div><div className='small'>{b.requirement}</div></div>)}
 
 export default function StudentDashboard(){
+  const nav = useNavigate()
+  const logout = ()=> nav('/login')
+
   return (
     <div className='container'>
-      <div className='header'><h2>Student Dashboard</h2></div>
+      <div className='header-bar'>
+        <h2>Student Dashboard</h2>
+        <span className='logout' onClick={logout}>Sign out</span>
+      </div>
 
-      <h3>Lessons</h3>
-      <div className='lesson-grid'>{sampleLessons.map(l=> <LessonCard key={l.id} l={l} />)}</div>
+      <IconTitle icon="fa fa-book" text="Lessons" />
+      <div className='lesson-grid'>
+        {sampleLessons.map(l=> (
+          <div className='card' key={l.id}>
+            <div className='card-title'>{l.title}</div>
+            <div className='small'>{l.description}</div>
+          </div>
+        ))}
+      </div>
 
-      <h3 style={{marginTop:18}}>Quizzes</h3>
-      <div className='lesson-grid'>{sampleQuizzes.map(q=> <QuizCard key={q.id} q={q} />)}</div>
+      <IconTitle icon="fa fa-pen" text="Quizzes" />
+      <div className='lesson-grid'>
+        {sampleQuizzes.map(q=> (
+          <div className='card' key={q.id}>
+            <div className='card-title'>{q.title}</div>
+            <div className='small'>{q.questions.length} questions</div>
+          </div>
+        ))}
+      </div>
 
-      <h3 style={{marginTop:18}}>Challenges</h3>
-      <div className='lesson-grid'>{sampleChallenges.map(c=> <ChallengeCard key={c.id} c={c} />)}</div>
+      <IconTitle icon="fa fa-trophy" text="Challenges" />
+      <div className='lesson-grid'>
+        {sampleChallenges.map(c=> (
+          <div className='card' key={c.id}>
+            <div className='card-title'>{c.title}</div>
+            <div className='small'>{c.description}</div>
+          </div>
+        ))}
+      </div>
 
-      <h3 style={{marginTop:18}}>My Badges</h3>
-      <div style={{display:'flex',gap:12}}>{sampleBadges.map(b=> <BadgeCard key={b.id} b={b} />)}</div>
+      <IconTitle icon="fa fa-medal" text="Badges" />
+      <div style={{display:'flex',gap:12}}>
+        {sampleBadges.map(b=> (
+          <div className='card' key={b.id}>
+            <div className='card-title'>{b.name}</div>
+            <div className='small'>{b.requirement}</div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
