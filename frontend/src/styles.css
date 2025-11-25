@@ -1,0 +1,15 @@
+:root{--bg:#f7fbff;--card:#fff;--accent:#2b7bff}
+*{box-sizing:border-box}
+body{font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);margin:0;padding:0;color:#222}
+.container{max-width:1000px;margin:32px auto;padding:16px}
+.center{display:flex;align-items:center;justify-content:center}
+.button{padding:14px 22px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+.card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+.role-grid{display:flex;gap:12px}
+.role{flex:1;padding:16px;border-radius:10px;border:2px dashed #ddd;cursor:pointer;text-align:center}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+
+
+.lesson-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.card-title{font-weight:700;margin-bottom:8px}
+.small{font-size:14px;color:#666}
