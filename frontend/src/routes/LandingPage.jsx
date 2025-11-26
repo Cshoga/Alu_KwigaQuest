@@ -12,6 +12,9 @@ export default function LandingPage(){
       <h1 style={{ fontSize: '4rem', marginBottom: 20, fontWeight: 700 }}>
         KwigaQuest
       </h1>
+      <h2> Welcome to KwigaQuest! every journey becomes an adventure.</h2>
+      <h3>We make studying easier, more interactive, and more organized. Wether you're a student, teacher, admin, Kwigaquest brings everything you need in one seamless platform.
+         Begin your journey today and explore learning in a whole new way.</h3>
 
       <button 
         className="button"
