@@ -386,4 +386,58 @@ body {
   background: rgba(255,255,255,0.2);
   color: rgba(255,255,255,0.5);
 }
+.lesson-btn, .quiz-btn {
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.lesson-btn {
+  background: #4f46e5;
+  color: #fff;
+}
+.lesson-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(79,70,229,0.5);
+  background: #6366f1;
+}
+
+.quiz-btn {
+  background: #10b981;
+  color: #fff;
+}
+.quiz-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(16,185,129,0.5);
+  background: #34d399;
+}
+
+.badge {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.badge:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+.badge.earned {
+  background: #f59e0b; 
+}
+.badge.locked {
+  background: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.6);
+}
+
 
