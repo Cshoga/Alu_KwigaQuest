@@ -15,7 +15,7 @@ export default function TeacherDashboard() {
     setTimeout(() => setToast(null), 1500)
   }
 
-
+  /* ---------- FORM HANDLERS ---------- */
   const submitLesson = e => {
     e.preventDefault()
     console.log('Lesson submitted:', lesson)
@@ -37,13 +37,13 @@ export default function TeacherDashboard() {
     setStudent({ fullname: '', email: '', studentID: '', assigned_class: 'P6A' })
   }
 
- 
+  /* ---------- DYNAMIC QUIZ QUESTIONS FORM ---------- */
   const renderQuizQuestions = () => {
     let questionsArray = []
     for (let i = 0; i < quiz.numQuestions; i++) {
       questionsArray.push(
-        <div key={i} className='card' style={{ marginBottom: '10px', padding: '10px' }}>
-          <h4>Question {i + 1}</h4>
+        <div key={i} className='card' style={{ marginBottom: '10px', padding: '12px' }}>
+          <label>Question {i + 1}</label>
           <input
             placeholder='Question text'
             value={quiz.questions[i]?.text || ''}
@@ -54,17 +54,20 @@ export default function TeacherDashboard() {
             }}
           />
           {[0, 1, 2, 3].map(j => (
-            <input
-              key={j}
-              placeholder={`Answer ${j + 1}`}
-              value={quiz.questions[i]?.answers[j] || ''}
-              onChange={e => {
-                const newQuestions = [...quiz.questions]
-                newQuestions[i].answers[j] = e.target.value
-                setQuiz({ ...quiz, questions: newQuestions })
-              }}
-            />
+            <div key={j}>
+              <label>Answer {j + 1}</label>
+              <input
+                placeholder={`Answer ${j + 1}`}
+                value={quiz.questions[i]?.answers[j] || ''}
+                onChange={e => {
+                  const newQuestions = [...quiz.questions]
+                  newQuestions[i].answers[j] = e.target.value
+                  setQuiz({ ...quiz, questions: newQuestions })
+                }}
+              />
+            </div>
           ))}
+          <label>Correct Answer</label>
           <input
             placeholder='Correct Answer'
             value={quiz.questions[i]?.correct || ''}
@@ -89,7 +92,7 @@ export default function TeacherDashboard() {
       <div className='dashboard-content'>
         <h2>Teacher Dashboard</h2>
 
-     
+        {/* ---------- SIDEBAR MENU ---------- */}
         <div className='teacher-sidebar' style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
           <button className='sidebar-btn' onClick={() => setActiveView('createLesson')}>Create Lessons</button>
           <button className='sidebar-btn' onClick={() => setActiveView('createQuiz')}>Create Quizzes</button>
@@ -98,22 +101,30 @@ export default function TeacherDashboard() {
           <button className='sidebar-btn' onClick={() => setActiveView('addStudent')}>Add Students</button>
         </div>
 
-      
+        {/* ---------- CREATE LESSON ---------- */}
         {activeView === 'createLesson' && (
           <div className='card'>
             <h3>Create Lesson</h3>
-            <form onSubmit={submitLesson} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <input placeholder='Subject Name' value={lesson.subject} onChange={e => setLesson({ ...lesson, subject: e.target.value })} />
-              <textarea placeholder='Subject Content' value={lesson.content} onChange={e => setLesson({ ...lesson, content: e.target.value })} style={{ height: '120px' }} />
+            <form onSubmit={submitLesson} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <label>Subject Name</label>
+              <input value={lesson.subject} onChange={e => setLesson({ ...lesson, subject: e.target.value })} />
+
+              <label>Subject Content</label>
+              <textarea value={lesson.content} onChange={e => setLesson({ ...lesson, content: e.target.value })} style={{ height: '120px' }} />
+
+              <label>Difficulty Level</label>
               <select value={lesson.difficulty} onChange={e => setLesson({ ...lesson, difficulty: e.target.value })}>
                 <option value='easy'>Easy</option>
                 <option value='medium'>Medium</option>
                 <option value='hard'>Hard</option>
               </select>
+
+              <label>Assigned Class</label>
               <select value={lesson.assigned_class} onChange={e => setLesson({ ...lesson, assigned_class: e.target.value })}>
                 <option value='P6A'>P6A</option>
                 <option value='P6B'>P6B</option>
               </select>
+
               <div style={{ display: 'flex', gap: '10px' }}>
                 <button className='create-btn'>Create</button>
                 <button type='button' className='create-btn' onClick={() => setActiveView('')}>Cancel</button>
@@ -122,18 +133,25 @@ export default function TeacherDashboard() {
           </div>
         )}
 
-       
+        {/* ---------- CREATE QUIZ ---------- */}
         {activeView === 'createQuiz' && (
           <div className='card'>
             <h3>Create Quiz</h3>
-            <form onSubmit={submitQuiz} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <input placeholder='Quiz Title' value={quiz.title} onChange={e => setQuiz({ ...quiz, title: e.target.value })} />
-              <input type='number' min='1' placeholder='Number of Questions' value={quiz.numQuestions} onChange={e => setQuiz({ ...quiz, numQuestions: parseInt(e.target.value), questions: [] })} />
+            <form onSubmit={submitQuiz} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <label>Quiz Title</label>
+              <input value={quiz.title} onChange={e => setQuiz({ ...quiz, title: e.target.value })} />
+
+              <label>Number of Questions</label>
+              <input type='number' min='1' value={quiz.numQuestions} onChange={e => setQuiz({ ...quiz, numQuestions: parseInt(e.target.value), questions: [] })} />
+
+              <label>Assigned Class</label>
               <select value={quiz.assigned_class} onChange={e => setQuiz({ ...quiz, assigned_class: e.target.value })}>
                 <option value='P6A'>P6A</option>
                 <option value='P6B'>P6B</option>
               </select>
+
               {renderQuizQuestions()}
+
               <div style={{ display: 'flex', gap: '10px' }}>
                 <button className='create-btn'>Create Quiz</button>
                 <button type='button' className='create-btn' onClick={() => setActiveView('')}>Cancel</button>
@@ -142,25 +160,36 @@ export default function TeacherDashboard() {
           </div>
         )}
 
+        {/* ---------- POST CHALLENGE ---------- */}
         {activeView === 'postChallenge' && (
           <div className='card'><h3>Post Challenge</h3><p>Features coming soon</p></div>
         )}
 
+        {/* ---------- VIEW STUDENT PROGRESS ---------- */}
         {activeView === 'viewProgress' && (
           <div className='card'><h3>View Student Progress</h3><p>Features coming soon</p></div>
         )}
 
+        {/* ---------- ADD STUDENTS ---------- */}
         {activeView === 'addStudent' && (
           <div className='card'>
             <h3>Add Student to Class</h3>
-            <form onSubmit={submitStudent} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <input placeholder='Full Names' value={student.fullname} onChange={e => setStudent({ ...student, fullname: e.target.value })} />
-              <input placeholder='Student Email' value={student.email} onChange={e => setStudent({ ...student, email: e.target.value })} />
-              <input placeholder='Student ID' value={student.studentID} onChange={e => setStudent({ ...student, studentID: e.target.value })} />
+            <form onSubmit={submitStudent} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <label>Full Names</label>
+              <input value={student.fullname} onChange={e => setStudent({ ...student, fullname: e.target.value })} />
+
+              <label>Student Email</label>
+              <input value={student.email} onChange={e => setStudent({ ...student, email: e.target.value })} />
+
+              <label>Student ID</label>
+              <input value={student.studentID} onChange={e => setStudent({ ...student, studentID: e.target.value })} />
+
+              <label>Assigned Class</label>
               <select value={student.assigned_class} onChange={e => setStudent({ ...student, assigned_class: e.target.value })}>
                 <option value='P6A'>P6A</option>
                 <option value='P6B'>P6B</option>
               </select>
+
               <div style={{ display: 'flex', gap: '10px' }}>
                 <button className='create-btn'>Add Student</button>
                 <button type='button' className='create-btn' onClick={() => setActiveView('')}>Cancel</button>
