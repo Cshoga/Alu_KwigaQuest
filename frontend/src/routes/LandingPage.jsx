@@ -1,12 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import './styles.css'
 
-export default function LandingPage() {
+export default function LandingPage(){
   const nav = useNavigate()
 
   return (
-    <div className="landing-container">
+    <div className="center" style={{ height:'100vh', flexDirection:'column' }}>
+      
       <div className="hero-text-container">
         
         <h1 className="hero-title">KwigaQuest</h1>
@@ -23,13 +23,14 @@ export default function LandingPage() {
         </h3>
 
         <button 
-          className="button hero-btn"
+          className="button"
           onClick={() => nav('/login')}
         >
           Let's Get Started
         </button>
 
       </div>
+
     </div>
   )
 }
