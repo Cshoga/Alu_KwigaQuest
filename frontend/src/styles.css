@@ -6,7 +6,7 @@ body {
   min-height: 100vh;
   background:
     linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-    url('/mnt/data/landing&login page.jpg') center/cover no-repeat;
+    url('/mnt/data/landing&login page.jpg') center/cover no-repeat fixed;
   animation: fadeIn 1s ease-in;
 }
 
@@ -59,14 +59,14 @@ body {
   border-radius: 8px;
   background: rgba(255,255,255,0.05);
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .sidebar a:hover,
 .student-sidebar a:hover {
   background: #007bff;
   transform: scale(1.03);
-  box-shadow: 0 6px 16px rgba(0,123,255,0.4);
+  box-shadow: 0 8px 20px rgba(0,123,255,0.6);
 }
 
 .toast {
@@ -77,6 +77,7 @@ body {
   padding: 12px 18px;
   border-radius: 8px;
   animation: slideIn .5s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 .toast.error { background: #ff4444; }
 
@@ -85,6 +86,7 @@ body {
   to { opacity: 1; }
 }
 
+/* Enhanced button with shadow hover effects */
 .button {
   font-size: 1.6rem;
   padding: 15px 40px;
@@ -94,11 +96,13 @@ body {
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 .button:hover {
   background: #e6e6e6;
-  transform: scale(1.05);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 .hero-text-container {
@@ -184,19 +188,21 @@ body {
   cursor: pointer;
   background: rgba(255,255,255,0.85);
   color: #000;
-  transition: 0.25s ease;
+  transition: all 0.3s ease;
   box-shadow: 0 4px 14px rgba(255,255,255,0.25);
 }
 
 .role-option:hover,
 .role-btn:hover {
-  transform: scale(1.08);
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 8px 20px rgba(255,255,255,0.4);
   background: #eaeaea;
 }
 
 .active-role {
   background: #4f46e5 !important;
   color: #fff !important;
+  box-shadow: 0 6px 16px rgba(79,70,229,0.4) !important;
 }
 
 .dashboard-container {
@@ -223,7 +229,7 @@ body {
   width: 100%;
   max-width: 700px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-  transition: 0.25s ease;
+  transition: all 0.3s ease;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -232,8 +238,8 @@ body {
 .lesson-card:hover,
 .quiz-card:hover,
 .challenge-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
 }
 
 .lesson-btn,
@@ -245,7 +251,8 @@ body {
   border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
-  transition: 0.25s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .lesson-btn {
@@ -254,7 +261,8 @@ body {
 }
 .lesson-btn:hover {
   background: #6366f1;
-  transform: scale(1.05);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(79,70,229,0.4);
 }
 
 .quiz-btn {
@@ -263,7 +271,8 @@ body {
 }
 .quiz-btn:hover {
   background: #34d399;
-  transform: scale(1.05);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(16,185,129,0.4);
 }
 
 .challenge-btn,
@@ -274,7 +283,8 @@ body {
 .challenge-btn:hover,
 .continue-btn:hover {
   background: #fbbf24;
-  transform: scale(1.05);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(245,158,11,0.4);
 }
 
 .challenge-progress {
@@ -291,6 +301,7 @@ body {
   width: 0%;
   transition: width 0.5s ease;
 }
+
 .badges-container {
   display: flex;
   flex-wrap: wrap;
@@ -307,11 +318,12 @@ body {
   align-items: center;
   font-size: 32px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: 0.25s ease;
+  transition: all 0.3s ease;
 }
 
 .badge:hover {
-  transform: scale(1.1);
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
 .badge.earned {
@@ -320,6 +332,43 @@ body {
 .badge.locked {
   background: rgba(255,255,255,0.2);
   color: rgba(255,255,255,0.6);
+}
+
+/* Pitch black text areas */
+textarea, 
+input[type="text"],
+input[type="email"],
+input[type="password"],
+.text-area {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #333 !important;
+  padding: 12px 15px !important;
+  border-radius: 8px !important;
+  width: 100% !important;
+  font-family: Inter, Arial, sans-serif !important;
+  font-size: 16px !important;
+  resize: vertical !important;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.1) !important;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+.text-area:focus {
+  outline: none !important;
+  border-color: #007bff !important;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.1), 0 0 0 2px rgba(0,123,255,0.25) !important;
+}
+
+/* Form container styling */
+.form-container {
+  background: rgba(0,0,0,0.7);
+  padding: 30px;
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
 
 @media(max-width: 700px) {
@@ -339,5 +388,10 @@ body {
     flex-direction: column;
     gap: 20px;
     text-align: center;
+  }
+  
+  .button {
+    font-size: 1.4rem;
+    padding: 12px 30px;
   }
 }
