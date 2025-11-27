@@ -62,8 +62,7 @@ and start the local host in your browser
 
 
 ## Usage
-
-Open the app in your browser (default: http://localhost:3000)
+Open the app in your browser (default: http://localhost:5173)
 Explore the sidebar for navigation.
 Click on Start Lesson, Take Quiz, or Continue buttons to interact.
 View earned badges in the badges section.
