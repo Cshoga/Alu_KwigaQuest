@@ -16,11 +16,12 @@ export default function StudentDashboard() {
   return (
     <div className='dashboard-container'>
       <Sidebar role="Student" />
-      <div className='dashboard-content' style={{ marginLeft: 220 }}>
-        <h2>Welcome Student</h2>
-        {toast && <Toast message={toast} />}
+      <div className='dashboard-content'>
 
-      
+        {toast && <Toast message={toast} />}
+        <h2>Welcome Student</h2>
+
+        {/* ---------- LESSONS ---------- */}
         <h3><i className='fa fa-book'></i> Lessons</h3>
         {sampleLessons.map(l => (
           <div className='lesson-card' key={l.id}>
@@ -37,7 +38,7 @@ export default function StudentDashboard() {
           </div>
         ))}
 
-      
+        {/* ---------- QUIZZES ---------- */}
         <h3><i className='fa fa-pen'></i> Quizzes</h3>
         {sampleQuizzes.map(q => (
           <div className='quiz-card' key={q.id}>
@@ -54,20 +55,31 @@ export default function StudentDashboard() {
           </div>
         ))}
 
-       
+        {/* ---------- CHALLENGES ---------- */}
         <h3><i className='fa fa-trophy'></i> Challenges</h3>
         {sampleChallenges.map(c => (
           <div className='challenge-card' key={c.id}>
             <div className='challenge-title'>{c.title}</div>
-            <div className='challenge-progress'>
-              <div
-                className='challenge-progress-bar'
-                style={{ width: `${c.progress}%` }}
-              ></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%' }}>
+              <div className='challenge-progress'>
+                <div
+                  className='challenge-progress-bar'
+                  style={{ width: `${c.progress}%` }}
+                >
+                  {c.progress}%
+                </div>
+              </div>
+              <button
+                className='continue-btn'
+                onClick={() => setToast(`Continuing challenge: ${c.title}`)}
+              >
+                Continue
+              </button>
             </div>
           </div>
         ))}
 
+        {/* ---------- BADGES ---------- */}
         <h3><i className='fa fa-medal'></i> Badges</h3>
         <div className='badges-container'>
           {sampleBadges.map(b => (
@@ -76,10 +88,11 @@ export default function StudentDashboard() {
               key={b.id}
               title={b.name}
             >
-              {b.earned ? '🏆' : '🥈'}
+              {b.earned ? '🏆' : '🔒'}
             </div>
           ))}
         </div>
+
       </div>
     </div>
   )
