@@ -15,7 +15,6 @@ export default function TeacherDashboard() {
     setTimeout(() => setToast(null), 1500)
   }
 
-  /* ---------- FORM HANDLERS ---------- */
   const submitLesson = e => {
     e.preventDefault()
     console.log('Lesson submitted:', lesson)
@@ -37,7 +36,6 @@ export default function TeacherDashboard() {
     setStudent({ fullname: '', email: '', studentID: '', assigned_class: 'P6A' })
   }
 
-  /* ---------- DYNAMIC QUIZ QUESTIONS FORM ---------- */
   const renderQuizQuestions = () => {
     let questionsArray = []
     for (let i = 0; i < quiz.numQuestions; i++) {
@@ -92,7 +90,6 @@ export default function TeacherDashboard() {
       <div className='dashboard-content'>
         <h2>Teacher Dashboard</h2>
 
-        {/* ---------- SIDEBAR MENU ---------- */}
         <div className='teacher-sidebar' style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
           <button className='sidebar-btn' onClick={() => setActiveView('createLesson')}>Create Lessons</button>
           <button className='sidebar-btn' onClick={() => setActiveView('createQuiz')}>Create Quizzes</button>
@@ -101,9 +98,8 @@ export default function TeacherDashboard() {
           <button className='sidebar-btn' onClick={() => setActiveView('addStudent')}>Add Students</button>
         </div>
 
-        {/* ---------- CREATE LESSON ---------- */}
         {activeView === 'createLesson' && (
-          <div className='card'>
+          <div className='form-wrapper'>
             <h3>Create Lesson</h3>
             <form onSubmit={submitLesson} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <label>Subject Name</label>
@@ -133,9 +129,8 @@ export default function TeacherDashboard() {
           </div>
         )}
 
-        {/* ---------- CREATE QUIZ ---------- */}
         {activeView === 'createQuiz' && (
-          <div className='card'>
+        <div className='form-wrapper'>
             <h3>Create Quiz</h3>
             <form onSubmit={submitQuiz} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <label>Quiz Title</label>
@@ -160,19 +155,19 @@ export default function TeacherDashboard() {
           </div>
         )}
 
-        {/* ---------- POST CHALLENGE ---------- */}
+        
         {activeView === 'postChallenge' && (
           <div className='card'><h3>Post Challenge</h3><p>Features coming soon</p></div>
         )}
 
-        {/* ---------- VIEW STUDENT PROGRESS ---------- */}
+       
         {activeView === 'viewProgress' && (
           <div className='card'><h3>View Student Progress</h3><p>Features coming soon</p></div>
         )}
 
-        {/* ---------- ADD STUDENTS ---------- */}
+       
         {activeView === 'addStudent' && (
-          <div className='card'>
+         <div className='form-wrapper'>
             <h3>Add Student to Class</h3>
             <form onSubmit={submitStudent} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <label>Full Names</label>
