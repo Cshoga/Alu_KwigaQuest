@@ -18,7 +18,6 @@ export default function LoginPage() {
     e.preventDefault()
 
     try {
-      // Try backend login
       try {
         const res = await apiLogin(form.username, form.password)
 
@@ -28,10 +27,7 @@ export default function LoginPage() {
 
         return
       } catch (err) {
-        // fallback if backend offline
       }
-
-      // Local sample login
       let pool =
         role === 'Student'
           ? sampleUsers.students
@@ -55,14 +51,28 @@ export default function LoginPage() {
       setError('Login failed')
     }
   }
+return (
+  <div className="login-container">
 
-  return (
+    <h2 className="login-title">Choose Your Role</h2>
+
+    <div className="role-select-row">
+      {['Student', 'Teacher', 'Admin'].map((r) => (
+        <div
+          key={r}
+          className={`role-option ${role === r ? 'active-role' : ''}`}
+          onClick={() => handleRole(r)}
+        >
+          {r}
+        </div>
+      ))}
+    </div> 
+
+ return (
     <div className="container">
       <div className="header">
         <h2>Choose Your Role</h2>
       </div>
-
-      {/* Role Selection */}
       <div className="role-grid" style={{ marginBottom: 18 }}>
         {['Student', 'Teacher', 'Admin'].map((r) => (
           <div
@@ -76,7 +86,6 @@ export default function LoginPage() {
         ))}
       </div>
 
-      {/* Login Form */}
       {role && (
         <form onSubmit={handleSubmit} className="card">
           <h3>Login as {role}</h3>
