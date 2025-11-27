@@ -139,6 +139,69 @@ body{
     transform: translateY(0);
   }
 }
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.login-box {
+  background: rgba(0, 0, 0, 0.55);
+  padding: 40px 55px;
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.45);
+  animation: fadeInUp 1.3s ease;
+}
+
+.login-title {
+  font-size: 38px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.login-subtitle {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+.role-buttons {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.role-btn {
+  padding: 14px 30px;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 14px;
+  cursor: pointer;
+  border: none;
+  background: #ffffff;
+  color: #000;
+
+  box-shadow: 0 4px 12px rgba(255,255,255,0.25);
+  transition: 0.25s ease;
+}
+
+.role-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(255,255,255,0.4);
+  background: #eaeaea;
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 
 
 
