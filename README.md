@@ -29,30 +29,35 @@ KwigaQuest is an interactive learning platform designed for students to access l
 ## Installation
 1. Clone the repository:
    git clone https://github.com/Cshoga/Alu_kwigaquest.git
+   
 2.Navigate into the project directory:
    cd kwigaquest
    cd backend
+   
 3.Install dependencies:
    pip install -r requirements.txt
+   
 4.Start the backend server:
    python app.py
 the backend will run on port 5000
+
 5. Open a new command prompt and navigate to the frontend
    cd frontend
-6. install dependencies
+   
+7. install dependencies
    npm install
-7. start the frontend server:
+   
+9. start the frontend server:
    npm run dev
+   
 you should see something like this:
 > kwigaquest-frontend@1.0.0 dev
 > vite
+VITE v5.4.21  ready in 255 ms
+➜  Local:   http://localhost:5173/
+>  ➜  Network: use --host to expose
+> ➜  press h + enter to show help
 
-
-  VITE v5.4.21  ready in 255 ms
-
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: use --host to expose
-  ➜  press h + enter to show help
 and start the local host in your browser
 
 
