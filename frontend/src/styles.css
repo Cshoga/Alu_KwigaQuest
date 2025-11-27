@@ -728,11 +728,11 @@ label {
   color: #fff;
 }
 .form-wrapper {
-  max-width: 600px;       
-  margin: 20px auto;     
-  padding: 25px;
+  max-width: 800px;       
+  margin: 40px auto;     
+  padding: 30px;
   background: rgba(0, 0, 0, 0.55);
-  border-radius: 16px;
+  border-radius: 20px;
   backdrop-filter: blur(6px);
   box-shadow: 0 6px 20px rgba(0,0,0,0.45);
   animation: fadeInUp 0.8s ease;
@@ -748,7 +748,7 @@ label {
 .form-wrapper input,
 .form-wrapper textarea,
 .form-wrapper select {
-  margin-bottom: 12px;
+  margin-bottom: 13px;
 }
 
 .form-btn-row {
