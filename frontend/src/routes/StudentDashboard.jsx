@@ -16,10 +16,11 @@ export default function StudentDashboard() {
   return (
     <div className='dashboard-container'>
       <Sidebar role="Student" />
-      <div className='dashboard-content'>
+      <div className='dashboard-content' style={{ marginLeft: 220 }}>
         <h2>Welcome Student</h2>
         {toast && <Toast message={toast} />}
 
+      
         <h3><i className='fa fa-book'></i> Lessons</h3>
         {sampleLessons.map(l => (
           <div className='lesson-card' key={l.id}>
@@ -27,10 +28,16 @@ export default function StudentDashboard() {
               <h4>{l.title}</h4>
               <p>{l.description}</p>
             </div>
-            <button onClick={() => setToast(`Starting lesson: ${l.title}`)}>Start Lesson</button>
+            <button
+              className='lesson-btn'
+              onClick={() => setToast(`Starting lesson: ${l.title}`)}
+            >
+              Start Lesson
+            </button>
           </div>
         ))}
 
+      
         <h3><i className='fa fa-pen'></i> Quizzes</h3>
         {sampleQuizzes.map(q => (
           <div className='quiz-card' key={q.id}>
@@ -38,10 +45,16 @@ export default function StudentDashboard() {
               <h4>{q.title}</h4>
               <p>{q.description}</p>
             </div>
-            <button onClick={() => setToast(`Taking quiz: ${q.title}`)}>Take Quiz</button>
+            <button
+              className='quiz-btn'
+              onClick={() => setToast(`Taking quiz: ${q.title}`)}
+            >
+              Take Quiz
+            </button>
           </div>
         ))}
 
+       
         <h3><i className='fa fa-trophy'></i> Challenges</h3>
         {sampleChallenges.map(c => (
           <div className='challenge-card' key={c.id}>
@@ -63,7 +76,7 @@ export default function StudentDashboard() {
               key={b.id}
               title={b.name}
             >
-              {b.earned ? '🏅' : '🔒'}
+              {b.earned ? '🏆' : '🥈'}
             </div>
           ))}
         </div>
