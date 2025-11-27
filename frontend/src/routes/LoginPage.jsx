@@ -18,6 +18,7 @@ export default function LoginPage() {
     e.preventDefault()
 
     try {
+     
       try {
         const res = await apiLogin(form.username, form.password)
 
@@ -27,7 +28,9 @@ export default function LoginPage() {
 
         return
       } catch (err) {
+        
       }
+
       let pool =
         role === 'Student'
           ? sampleUsers.students
@@ -51,91 +54,148 @@ export default function LoginPage() {
       setError('Login failed')
     }
   }
-return (
-  <div className="login-container">
 
-    <h2 className="login-title">Choose Your Role</h2>
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "#f5f7fa",
+        padding: 20
+      }}
+    >
+      <div
+        style={{
+          background: "white",
+          padding: "40px",
+          borderRadius: "16px",
+          width: "400px",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+          textAlign: "center"
+        }}
+      >
+        <h2 style={{ marginBottom: "10px" }}>Choose Your Role</h2>
+        <p style={{ marginBottom: "25px", fontSize: "15px", color: "#555" }}>
+          Select one of the roles below
+        </p>
 
-    <div className="role-select-row">
-      {['Student', 'Teacher', 'Admin'].map((r) => (
         <div
-          key={r}
-          className={`role-option ${role === r ? 'active-role' : ''}`}
-          onClick={() => handleRole(r)}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "12px",
+            marginBottom: 25
+          }}
         >
-          {r}
+          {["Student", "Teacher", "Admin"].map((r) => (
+            <div
+              key={r}
+              onClick={() => handleRole(r)}
+              style={{
+                flex: 1,
+                padding: "12px",
+                borderRadius: "10px",
+                cursor: "pointer",
+                background: role === r ? "#4f46e5" : "#e5e7eb",
+                color: role === r ? "white" : "black",
+                boxShadow: "0 3px 8px rgba(0,0,0,0.15)",
+                transition: "0.25s",
+                userSelect: "none",
+                fontWeight: 600
+              }}
+              onMouseEnter={(e) => (e.target.style.transform = "scale(1.05)")}
+              onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
+            >
+              {r}
+            </div>
+          ))}
         </div>
-      ))}
-    </div> 
+        {role && (
+          <form onSubmit={handleSubmit}>
+            <h3 style={{ marginBottom: 20 }}>Login as {role}</h3>
 
- return (
-    <div className="container">
-      <div className="header">
-        <h2>Choose Your Role</h2>
+            <label className="small">Username</label>
+            <input
+              value={form.username}
+              onChange={(e) => setForm({ ...form, username: e.target.value })}
+              style={{
+                width: "100%",
+                padding: 10,
+                marginBottom: 14,
+                borderRadius: 8,
+                border: "1px solid #ccc"
+              }}
+            />
+
+            <label className="small">Password</label>
+            <input
+              type="password"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              style={{
+                width: "100%",
+                padding: 10,
+                marginBottom: 14,
+                borderRadius: 8,
+                border: "1px solid #ccc"
+              }}
+            />
+
+            {role === "Student" && (
+              <>
+                <label className="small">Classroom</label>
+                <input
+                  value={form.classroom}
+                  onChange={(e) =>
+                    setForm({ ...form, classroom: e.target.value })
+                  }
+                  style={{
+                    width: "100%",
+                    padding: 10,
+                    marginBottom: 14,
+                    borderRadius: 8,
+                    border: "1px solid #ccc"
+                  }}
+                />
+              </>
+            )}
+
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                padding: "12px",
+                background: "#4f46e5",
+                color: "white",
+                border: "none",
+                borderRadius: "10px",
+                cursor: "pointer",
+                marginTop: 10,
+                boxShadow: "0 3px 8px rgba(0,0,0,0.20)",
+                transition: "0.3s"
+              }}
+              onMouseEnter={(e) => (e.target.style.transform = "scale(1.03)")}
+              onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
+            >
+              Login
+            </button>
+
+            {error && (
+              <p style={{ color: "red", marginTop: 10 }}>{error}</p>
+            )}
+
+            <div className="small" style={{ marginTop: 15, fontSize: 13 }}>
+              <strong>Sample Logins:</strong>
+              <div>Student: student1 / pass123</div>
+              <div>Teacher: teacher1 / teach123</div>
+              <div>Admin: admin / admin123</div>
+            </div>
+          </form>
+        )}
       </div>
-      <div className="role-grid" style={{ marginBottom: 18 }}>
-        {['Student', 'Teacher', 'Admin'].map((r) => (
-          <div
-            key={r}
-            className="role card"
-            onClick={() => handleRole(r)}
-            style={{ borderColor: role === r ? '#2b7bff' : '#ddd' }}
-          >
-            <h3>{r}</h3>
-          </div>
-        ))}
-      </div>
-
-      {role && (
-        <form onSubmit={handleSubmit} className="card">
-          <h3>Login as {role}</h3>
-
-          <label className="small">Username</label>
-          <input
-            value={form.username}
-            onChange={(e) => setForm({ ...form, username: e.target.value })}
-            style={{ width: '100%', padding: 8 }}
-          />
-
-          <label className="small" style={{ marginTop: 12 }}>
-            Password
-          </label>
-          <input
-            type="password"
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-            style={{ width: '100%', padding: 8 }}
-          />
-
-          {role === 'Student' && (
-            <>
-              <label className="small" style={{ marginTop: 12 }}>
-                Classroom
-              </label>
-              <input
-                value={form.classroom}
-                onChange={(e) =>
-                  setForm({ ...form, classroom: e.target.value })
-                }
-                style={{ width: '100%', padding: 8 }}
-              />
-            </>
-          )}
-
-          <button className="button" type="submit" style={{ marginTop: 16 }}>
-            Login
-          </button>
-
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-
-          <div className="small" style={{ marginTop: 10 }}>
-            <strong>Samples:</strong>
-            <div>Students: student1/pass123</div>
-            <div>Teachers: teacher1/teach123</div>
-            <div>Admin: admin/admin123</div>
-          </div>
-        </form>
-      )}
     </div>
   )
 }
