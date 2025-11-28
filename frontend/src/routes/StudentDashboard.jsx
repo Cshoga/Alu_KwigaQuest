@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Sidebar from '../components/Sidebar'
 import Toast from '../components/Toast'
 import { sampleLessons, sampleQuizzes, sampleChallenges, sampleBadges } from '../data/sampleData'
 
