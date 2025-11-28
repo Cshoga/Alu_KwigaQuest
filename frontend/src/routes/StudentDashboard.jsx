@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Sidebar from '../components/Studentsidebar'
+import Studentsidebar from '../components/Studentsidebar'
 import Toast from '../components/Toast'
 import { sampleLessons, sampleQuizzes, sampleChallenges, sampleBadges } from '../data/sampleData'
 
