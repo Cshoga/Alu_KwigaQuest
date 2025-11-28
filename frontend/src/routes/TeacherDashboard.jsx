@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Toast from '../components/Toast'
-import Sidebar from '../components/Sidebar'
+import Sidebar from '../components/Teachersidebar'
 export default function TeacherDashboard() {
   const [activeView, setActiveView] = useState('createLesson')
   const [toast, setToast] = useState(null)
