@@ -72,30 +72,37 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="login-form-card">
             <h3>Login as {role}</h3>
 
-            <label>Username</label>
-            <input
-              value={form.username}
-              onChange={(e) => setForm({ ...form, username: e.target.value })}
-            />
+            <div className="form-group">
+              <label className="form-label">Username</label>
+              <input
+                className="form-input"
+                value={form.username}
+                onChange={(e) => setForm({ ...form, username: e.target.value })}
+              />
+            </div>
 
-            <label>Password</label>
-            <input
-              type="password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-            />
+            <div className="form-group">
+              <label className="form-label">Password</label>
+              <input
+                type="password"
+                className="form-input"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+              />
+            </div>
 
             {role === "Student" && (
-              <>
-                <label>Classroom</label>
+              <div className="form-group">
+                <label className="form-label">Classroom</label>
                 <input
+                  className="form-input"
                   value={form.classroom}
                   onChange={(e) => setForm({ ...form, classroom: e.target.value })}
                 />
-              </>
+              </div>
             )}
 
-            <button type="submit" className="login-btn">
+            <button type="submit" className="login-submit">
               Login
             </button>
 
