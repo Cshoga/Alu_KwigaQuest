@@ -6,6 +6,7 @@ import { sampleLessons, sampleQuizzes, sampleChallenges, sampleBadges } from '..
 export default function StudentDashboard() {
   const [loading, setLoading] = useState(true)
   const [toast, setToast] = useState(null)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   
   const [openSection, setOpenSection] = useState({
     lessons: true,
@@ -16,6 +17,10 @@ export default function StudentDashboard() {
 
   const toggle = (key) => {
     setOpenSection(prev => ({ ...prev, [key]: !prev[key] }))
+  }
+
+  const toggleSidebar = () => {
+    setSidebarCollapsed(!sidebarCollapsed)
   }
 
   useEffect(() => {
@@ -29,14 +34,24 @@ export default function StudentDashboard() {
   )
 
   return (
-    <div className="dashboard-container">
-      <Sidebar role="Student" />
+    <div className={`dashboard-container ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+      <div className="sidebar-wrapper">
+        <Sidebar role="Student" collapsed={sidebarCollapsed} />
+        <button 
+          className="sidebar-toggle-btn"
+          onClick={toggleSidebar}
+          aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {sidebarCollapsed ? '➡️' : '⬅️'}
+        </button>
+      </div>
 
       <div className="dashboard-content">
         {toast && <Toast message={toast} />}
 
         <h2 className="welcome-title">Welcome, Student 🎓</h2>
-        <section>
+        
+        <section className="dashboard-section">
           <h3 className="section-title collapsible" onClick={() => toggle('lessons')}>
             <i className="fa fa-book"></i> Lessons
             <span className="arrow">{openSection.lessons ? "▲" : "▼"}</span>
@@ -45,12 +60,11 @@ export default function StudentDashboard() {
           {openSection.lessons && (
             <div className="section-grid">
               {sampleLessons.map(l => (
-                <div className="card" key={l.id}>
+                <div className="card animated-card" key={l.id}>
                   <h4>{l.title}</h4>
                   <p>{l.description}</p>
-
                   <button
-                    className="btn-primary"
+                    className="btn-primary shadow-hover"
                     onClick={() => setToast(`Starting lesson: ${l.title}`)}
                   >
                     Start Lesson
@@ -60,7 +74,8 @@ export default function StudentDashboard() {
             </div>
           )}
         </section>
-        <section>
+
+        <section className="dashboard-section">
           <h3 className="section-title collapsible" onClick={() => toggle('quizzes')}>
             <i className="fa fa-question-circle"></i> Quizzes
             <span className="arrow">{openSection.quizzes ? "▲" : "▼"}</span>
@@ -69,12 +84,11 @@ export default function StudentDashboard() {
           {openSection.quizzes && (
             <div className="section-grid">
               {sampleQuizzes.map(q => (
-                <div className="card" key={q.id}>
+                <div className="card animated-card" key={q.id}>
                   <h4>{q.title}</h4>
                   <p>{q.description}</p>
-
                   <button
-                    className="btn-secondary"
+                    className="btn-secondary shadow-hover"
                     onClick={() => setToast(`Taking quiz: ${q.title}`)}
                   >
                     Take Quiz
@@ -84,7 +98,8 @@ export default function StudentDashboard() {
             </div>
           )}
         </section>
-        <section>
+
+        <section className="dashboard-section">
           <h3 className="section-title collapsible" onClick={() => toggle('challenges')}>
             <i className="fa fa-trophy"></i> Challenges
             <span className="arrow">{openSection.challenges ? "▲" : "▼"}</span>
@@ -93,17 +108,15 @@ export default function StudentDashboard() {
           {openSection.challenges && (
             <div className="section-grid">
               {sampleChallenges.map(c => (
-                <div className="card" key={c.id}>
+                <div className="card animated-card" key={c.id}>
                   <h4>{c.title}</h4>
-
                   <div className="progress-wrapper">
                     <div className="progress-bar" style={{ width: `${c.progress}%` }}>
                       {c.progress}%
                     </div>
                   </div>
-
                   <button
-                    className="btn-primary"
+                    className="btn-primary shadow-hover"
                     onClick={() => setToast(`Continuing challenge: ${c.title}`)}
                   >
                     Continue
@@ -113,7 +126,8 @@ export default function StudentDashboard() {
             </div>
           )}
         </section>
-        <section>
+
+        <section className="dashboard-section">
           <h3 className="section-title collapsible" onClick={() => toggle('badges')}>
             <i className="fa fa-medal"></i> Badges
             <span className="arrow">{openSection.badges ? "▲" : "▼"}</span>
@@ -123,7 +137,7 @@ export default function StudentDashboard() {
             <div className="badges-grid">
               {sampleBadges.map(b => (
                 <div
-                  className={`badge ${b.earned ? 'earned' : 'locked'}`}
+                  className={`badge animated-card ${b.earned ? 'earned' : 'locked'}`}
                   key={b.id}
                 >
                   {b.earned ? '🏆' : '🔒'}
