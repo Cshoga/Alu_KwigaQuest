@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
 import Toast from '../components/Toast'
 import Teachersidebar from '../components/Teachersidebar'
+
 export default function TeacherDashboard() {
   const [activeView, setActiveView] = useState('createLesson')
   const [toast, setToast] = useState(null)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   const [lesson, setLesson] = useState({ subject: '', content: '', difficulty: 'medium', assigned_class: 'P6A' })
   const [quiz, setQuiz] = useState({ title: '', numQuestions: 1, questions: [], assigned_class: 'P6A' })
   const [student, setStudent] = useState({ fullname: '', email: '', studentID: '', assigned_class: 'P6A' })
+
+  const toggleSidebar = () => {
+    setSidebarCollapsed(!sidebarCollapsed)
+  }
 
   const notify = (msg, type) => {
     setToast({ message: msg, type })
@@ -81,26 +87,39 @@ export default function TeacherDashboard() {
   }
 
   return (
-    <>
-      <Sidebar role="Teacher" />
+    <div className={`dashboard-container ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+      <div className="sidebar-wrapper">
+        {/* FIXED: Changed Sidebar to Teachersidebar and removed role prop */}
+        <Teachersidebar collapsed={sidebarCollapsed} />
+        <button 
+          className="sidebar-toggle-btn"
+          onClick={toggleSidebar}
+          aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {sidebarCollapsed ? '➡️' : '⬅️'}
+        </button>
+      </div>
 
-      {toast && <Toast message={toast.message} type={toast.type} />}
+      <div className="dashboard-content">
+        {toast && <Toast message={toast.message} type={toast.type} />}
 
-      <div className='dashboard-content'>
-        <h2>Teacher Dashboard</h2>
+        <div className="dashboard-header">
+          <h2 className="welcome-title">Welcome, Teacher 👩‍🏫</h2>
+          <p className="welcome-subtitle">Manage your classroom and create content</p>
+        </div>
 
-        <div className='teacher-sidebar' style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-          <button className='sidebar-btn' onClick={() => setActiveView('createLesson')}>Create Lessons</button>
-          <button className='sidebar-btn' onClick={() => setActiveView('createQuiz')}>Create Quizzes</button>
-          <button className='sidebar-btn' onClick={() => setActiveView('postChallenge')}>Post Challenge</button>
-          <button className='sidebar-btn' onClick={() => setActiveView('viewProgress')}>View Student Progress</button>
-          <button className='sidebar-btn' onClick={() => setActiveView('addStudent')}>Add Students</button>
+        <div className='teacher-navigation' style={{ display: 'flex', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
+          <button className={`nav-btn ${activeView === 'createLesson' ? 'active' : ''}`} onClick={() => setActiveView('createLesson')}>Create Lessons</button>
+          <button className={`nav-btn ${activeView === 'createQuiz' ? 'active' : ''}`} onClick={() => setActiveView('createQuiz')}>Create Quizzes</button>
+          <button className={`nav-btn ${activeView === 'postChallenge' ? 'active' : ''}`} onClick={() => setActiveView('postChallenge')}>Post Challenge</button>
+          <button className={`nav-btn ${activeView === 'viewProgress' ? 'active' : ''}`} onClick={() => setActiveView('viewProgress')}>View Student Progress</button>
+          <button className={`nav-btn ${activeView === 'addStudent' ? 'active' : ''}`} onClick={() => setActiveView('addStudent')}>Add Students</button>
         </div>
 
         {activeView === 'createLesson' && (
           <div className='form-wrapper'>
             <h3>Create Lesson</h3>
-            <form onSubmit={submitLesson} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <form onSubmit={submitLesson} className="teacher-form">
               <label>Subject Name</label>
               <input value={lesson.subject} onChange={e => setLesson({ ...lesson, subject: e.target.value })} />
 
@@ -120,18 +139,18 @@ export default function TeacherDashboard() {
                 <option value='P6B'>P6B</option>
               </select>
 
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <button className='create-btn'>Create</button>
-                <button type='button' className='create-btn' onClick={() => setActiveView('')}>Cancel</button>
+              <div className="form-actions">
+                <button className='btn-primary'>Create Lesson</button>
+                <button type='button' className='btn-secondary' onClick={() => setActiveView('')}>Cancel</button>
               </div>
             </form>
           </div>
         )}
 
         {activeView === 'createQuiz' && (
-        <div className='form-wrapper'>
+          <div className='form-wrapper'>
             <h3>Create Quiz</h3>
-            <form onSubmit={submitQuiz} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <form onSubmit={submitQuiz} className="teacher-form">
               <label>Quiz Title</label>
               <input value={quiz.title} onChange={e => setQuiz({ ...quiz, title: e.target.value })} />
 
@@ -146,29 +165,26 @@ export default function TeacherDashboard() {
 
               {renderQuizQuestions()}
 
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <button className='create-btn'>Create Quiz</button>
-                <button type='button' className='create-btn' onClick={() => setActiveView('')}>Cancel</button>
+              <div className="form-actions">
+                <button className='btn-primary'>Create Quiz</button>
+                <button type='button' className='btn-secondary' onClick={() => setActiveView('')}>Cancel</button>
               </div>
             </form>
           </div>
         )}
 
-        
         {activeView === 'postChallenge' && (
           <div className='card'><h3>Post Challenge</h3><p>Features coming soon</p></div>
         )}
 
-       
         {activeView === 'viewProgress' && (
           <div className='card'><h3>View Student Progress</h3><p>Features coming soon</p></div>
         )}
 
-       
         {activeView === 'addStudent' && (
-         <div className='form-wrapper'>
+          <div className='form-wrapper'>
             <h3>Add Student to Class</h3>
-            <form onSubmit={submitStudent} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <form onSubmit={submitStudent} className="teacher-form">
               <label>Full Names</label>
               <input value={student.fullname} onChange={e => setStudent({ ...student, fullname: e.target.value })} />
 
@@ -184,15 +200,14 @@ export default function TeacherDashboard() {
                 <option value='P6B'>P6B</option>
               </select>
 
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <button className='create-btn'>Add Student</button>
-                <button type='button' className='create-btn' onClick={() => setActiveView('')}>Cancel</button>
+              <div className="form-actions">
+                <button className='btn-primary'>Add Student</button>
+                <button type='button' className='btn-secondary' onClick={() => setActiveView('')}>Cancel</button>
               </div>
             </form>
           </div>
         )}
-
       </div>
-    </>
+    </div>
   )
 }
