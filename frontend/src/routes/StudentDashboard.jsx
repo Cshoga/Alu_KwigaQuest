@@ -25,7 +25,8 @@ export default function StudentDashboard() {
   return (
     <div className={`dashboard-container ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
       <div className="sidebar-wrapper">
-        <Sidebar role="Student" collapsed={sidebarCollapsed} />
+        {/* FIXED: Changed Sidebar to Studentsidebar and removed role prop */}
+        <Studentsidebar collapsed={sidebarCollapsed} />
         <button 
           className="sidebar-toggle-btn"
           onClick={toggleSidebar}
@@ -67,6 +68,7 @@ export default function StudentDashboard() {
               ))}
             </div>
           </section>
+
           <section className="dashboard-section">
             <div className="section-header">
               <i className="fa fa-question-circle section-icon"></i>
@@ -90,6 +92,7 @@ export default function StudentDashboard() {
               ))}
             </div>
           </section>
+
           <section className="dashboard-section">
             <div className="section-header">
               <i className="fa fa-trophy section-icon"></i>
@@ -118,6 +121,7 @@ export default function StudentDashboard() {
               ))}
             </div>
           </section>
+
           <section className="dashboard-section">
             <div className="section-header">
               <i className="fa fa-medal section-icon"></i>
