@@ -458,5 +458,22 @@ animation: slideIn .5s ease; }
     font-size: 16px;
   }
 }
+.collapsible {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.arrow {
+  font-size: 16px;
+  opacity: 0.8;
+  transition: transform 0.2s ease;
+}
+
+.section-title:hover .arrow {
+  opacity: 1;
+}
 
 
