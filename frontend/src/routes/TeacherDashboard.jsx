@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Sidebar from '../components/Sidebar'
 import Toast from '../components/Toast'
 
 export default function TeacherDashboard() {
